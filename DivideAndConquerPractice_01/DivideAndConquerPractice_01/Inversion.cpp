@@ -1,32 +1,197 @@
-class Inversion {
-public:
+
+/* C program for Merge Sort */
+#include<stdlib.h>
+#include<stdio.h>
+#include<vector>
+#include<iostream>
+
+using namespace std;
+
+// Merges two subarrays of arr[].
+// First subarray is arr[l..m]
+// Second subarray is arr[m+1..r]
+//void merge(int arr[], int l, int m, int r)
+//{
+//	int i, j, k;
+//	int n1temp = m - l + 1;
+//	int n2temp = r - m;
+//	const int n1 = n1temp;
+//	const int n2 = n2temp;
+//
+//	/* create temp arrays */
+//	int L[n1], R[n2];
+//
+//	/* Copy data to temp arrays L[] and R[] */
+//	for (i = 0; i < n1; i++)
+//		L[i] = arr[l + i];
+//	for (j = 0; j < n2; j++)
+//		R[j] = arr[m + 1 + j];
+//
+//	/* Merge the temp arrays back into arr[l..r]*/
+//	i = 0; // Initial index of first subarray
+//	j = 0; // Initial index of second subarray
+//	k = l; // Initial index of merged subarray
+//	while (i < n1 && j < n2)
+//	{
+//		if (L[i] <= R[j])
+//		{
+//			arr[k] = L[i];
+//			i++;
+//		}
+//		else
+//		{
+//			arr[k] = R[j];
+//			j++;
+//		}
+//		k++;
+//	}
+//
+//	/* Copy the remaining elements of L[], if there
+//	are any */
+//	while (i < n1)
+//	{
+//		arr[k] = L[i];
+//		i++;
+//		k++;
+//	}
+//
+//	/* Copy the remaining elements of R[], if there
+//	are any */
+//	while (j < n2)
+//	{
+//		arr[k] = R[j];
+//		j++;
+//		k++;
+//	}
+//}
+
+
+
+
+
+void myMerge(vector<int> &vect, int l, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - l + 1;
+	int n2 = r - m;
+
+
+	/* create temp arrays */
 	
-	Inversion(int Nums[], int size);
-	int getResult();
+	vector<int> L;
+	vector<int> R;
 
-private:
+	/* Copy data to temp arrays L[] and R[] */
+	for (i = 0; i < n1; i++)
+		L[i] = vect[l + i];
+	for (j = 0; j < n2; j++)
+		R[j] = vect[m + 1 + j];
 
-	int InverCounter;
-	int size;
-	int *Nums;
-	void sort_and_count(int Nums[], int size);
-	void divideInHalf(int Nums[], int size);
-	
-};
+	/* Merge the temp arrays back into arr[l..r]*/
+	i = 0; // Initial index of first subarray
+	j = 0; // Initial index of second subarray
+	k = l; // Initial index of merged subarray
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j])
+		{
+			vect[k] = L[i];
+			i++;
+		}
+		else
+		{
+			vect[k] = R[j];
+			j++;
+		}
+		k++;
+	}
 
-Inversion::Inversion(int Nums[], int size) :Nums(Nums), size(size), InverCounter(0) {};
+	/* Copy the remaining elements of L[], if there
+	are any */
+	while (i < n1)
+	{
+		vect[k] = L[i];
+		i++;
+		k++;
+	}
 
-int Inversion::getResult() { return InverCounter; }
-
-void Inversion::sort_and_count(int Nums[], int size) {
-	//if (size == 1)
-		return;
-
+	/* Copy the remaining elements of R[], if there
+	are any */
+	while (j < n2)
+	{
+		vect[k] = R[j];
+		j++;
+		k++;
+	}
 }
 
-void Inversion::divideInHalf(int Nums[], int size) {
-	if (size == 1)
-		return;
 
 
+
+/* l is for left index and r is right index of the
+sub-array of arr to be sorted */
+//void mergeSort(int arr[], int l, int r)
+//{
+//	if (l < r)
+//	{
+//		// Same as (l+r)/2, but avoids overflow for
+//		// large l and h
+//		int m = l + (r - l) / 2;
+//
+//		// Sort first and second halves
+//		mergeSort(arr, l, m);
+//		mergeSort(arr, m + 1, r);
+//
+//		merge(arr, l, m, r);
+//	}
+//}
+
+void myMergeSort(vector<int> &vect, int l, int r) {
+	if (l < r) {
+		int m = (l + r) / 2;
+
+		myMergeSort(vect, l, m);
+		myMergeSort(vect, m + 1, r);
+
+		myMerge(vect, l, m, r);
+
+	}
+}
+
+/* UTILITY FUNCTIONS */
+/* Function to print an array */
+void printArray(int A[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		printf("%d ", A[i]);
+	printf("\n");
+}
+
+void printVector(vector<int> vect) {
+	for (unsigned int i = 0; i < vect.size(); i++) {
+		cout << vect[i] << ' ';
+	}
+	cout << endl;
+}
+
+/* Driver program to test above functions */
+int main()
+{
+	int arr[] = { 12, 11, 13, 5, 6, 7 };
+	int arr_size = sizeof(arr) / sizeof(arr[0]);
+
+	vector<int> vect = { 12, 11, 13, 5, 6, 7 };
+	int vect_size = vect.size();
+
+	printf("Given array is \n");
+	//printArray(arr, arr_size);
+	printVector(vect);
+
+	myMergeSort(vect, 0, vect_size - 1);
+
+	printf("\nSorted array is \n");
+	//printArray(arr, arr_size);
+	printVector(vect);
+	return 0;
 }
