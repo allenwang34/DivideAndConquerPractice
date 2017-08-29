@@ -80,12 +80,23 @@ void myMerge(vector<int> &vect, int l, int m, int r)
 	
 	vector<int> L;
 	vector<int> R;
+	for (int i = 0; i < n1; i++) {
+		L.push_back(0);
+	}
+	for (int i = 0; i < n2; i++) {
+		R.push_back(0);
+	}
 
 	/* Copy data to temp arrays L[] and R[] */
-	for (i = 0; i < n1; i++)
+	for (i = 0; i < n1; i++) {
 		L[i] = vect[l + i];
-	for (j = 0; j < n2; j++)
+		
+	}
+
+	for (j = 0; j < n2; j++) {
 		R[j] = vect[m + 1 + j];
+		
+	}
 
 	/* Merge the temp arrays back into arr[l..r]*/
 	i = 0; // Initial index of first subarray
